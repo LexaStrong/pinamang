@@ -536,9 +536,18 @@ button {
 .about-grid {
   display: grid;
   grid-template-columns: 1fr 1.08fr 0.85fr;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    "text  image metrics"
+    "cta   image metrics";
   gap: 36px;
-  align-items: center;
+  align-items: start;
 }
+
+.about-col-left  { grid-area: text; }
+.about-cta-block { grid-area: cta; }
+.about-campus-image { grid-area: image; }
+.about-metric-stack { grid-area: metrics; }
 
 .section-label {
   font-size: 0.78rem;
@@ -776,12 +785,11 @@ button {
 }
 
 .academics-cta {
-  display: flex;
   justify-content: center;
 }
 
 /* ==========================================================================
-   DARK STATS COUNTER BANNER
+   DARK STATS COUNTER BANNER & MARQUEE
    ========================================================================== */
 .stats-banner-dark {
   background-color: var(--primary-navy);
@@ -791,9 +799,18 @@ button {
   padding: 48px 0;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  position: relative;
 }
 
-.banner-stats-grid {
+.banner-marquee-container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.banner-stats-track {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 24px;
@@ -805,6 +822,10 @@ button {
   gap: 16px;
   justify-content: center;
   text-align: left;
+}
+
+.banner-stat-item.duplicate {
+  display: none;
 }
 
 .banner-stat-icon {
@@ -848,43 +869,37 @@ button {
   height: 320px;
   background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' fill='none' stroke='%23e59714' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round' opacity='0.12'%3E%3Cpath d='M40 70 A30 30 0 0 1 160 70 L150 170 A15 15 0 0 1 135 185 L65 185 A15 15 0 0 1 50 170 Z'/%3E%3Cpath d='M70 70 V50 A30 30 0 0 1 130 50 V70'/%3E%3Cpath d='M60 110 H140'/%3E%3Cpath d='M60 140 H140'/%3E%3C/svg%3E") no-repeat center;
   background-size: contain;
-  pointer-events: none;
-  z-index: 1;
 }
 
 .admissions-grid {
   display: grid;
-  grid-template-columns: 0.95fr 1.05fr;
-  gap: 56px;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 60px;
   align-items: center;
-  position: relative;
-  z-index: 2;
-}
-
-.admissions-media {
-  position: relative;
 }
 
 .admissions-image-frame {
+  position: relative;
   border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
-  border: 4px solid var(--white);
+  box-shadow: var(--shadow-xl);
+  border: 5px solid var(--white);
 }
 
 .admissions-image-frame img {
   width: 100%;
-  height: 400px;
+  height: 380px;
   object-fit: cover;
+  transition: transform 0.5s ease;
 }
 
-.admissions-content {
-  max-width: 520px;
+.admissions-image-frame:hover img {
+  transform: scale(1.03);
 }
 
 .admissions-content .section-title {
   font-family: var(--font-serif);
-  font-size: 2.5rem;
+  font-size: 2.35rem;
   font-weight: 800;
   color: var(--primary-navy);
   line-height: 1.18;
@@ -892,9 +907,9 @@ button {
 }
 
 .admissions-content p {
-  font-size: 1rem;
+  font-size: 0.95rem;
   color: var(--text-muted);
-  line-height: 1.68;
+  line-height: 1.7;
   margin-bottom: 32px;
 }
 
@@ -906,8 +921,8 @@ button {
 }
 
 .btn-outline-navy {
-  border: 1.5px solid #28416d;
-  background: var(--white);
+  background-color: transparent;
+  border: 1.5px solid var(--primary-navy);
   color: var(--primary-navy);
   font-weight: 700;
   font-size: 0.85rem;
@@ -941,7 +956,7 @@ button {
 
 .footer-top-grid {
   display: grid;
-  grid-template-columns: 1.3fr 0.9fr 0.9fr 1.2fr 1.3fr;
+  grid-template-columns: 1.5fr 1fr 1.2fr 1.3fr;
   gap: 36px;
   padding-bottom: 48px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.09);
@@ -1255,9 +1270,9 @@ button {
   .about-metric-stack { grid-column: span 2; flex-direction: row; }
   .metric-card { flex: 1; }
   .programs-grid { grid-template-columns: repeat(3, 1fr); gap: 18px; }
-  .footer-top-grid { grid-template-columns: 1fr 1fr 1fr; gap: 28px; }
+  .footer-top-grid { grid-template-columns: 1.3fr 1fr 1fr; gap: 28px; }
   .footer-brand { grid-column: span 3; }
-  .banner-stats-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .banner-stats-track { gap: 16px; }
 }
 
 /* ─── 900px — Tablet / Mobile ───────────────────────────────────────── */
@@ -1431,26 +1446,152 @@ button {
 
   /* ── About ── */
   .about-section { padding: 48px 0; }
-  .about-grid { grid-template-columns: 1fr; gap: 24px; }
-  .about-col-left .section-title { font-size: 1.8rem; }
-  .about-campus-image img { height: 260px; }
-  .about-metric-stack { flex-direction: row; flex-wrap: wrap; gap: 12px; }
-  .metric-card { flex: 1 1 calc(50% - 6px); min-width: 140px; }
-  .about-stats-row { flex-wrap: wrap; gap: 12px; }
+
+  /* Switch to flex column so `order` works on all 4 children */
+  .about-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    grid-template-areas: none;
+  }
+
+  /* Order: 1-text, 2-image, 3-cta(button+stats), 4-metrics */
+  .about-col-left    { order: 1; }
+  .about-campus-image { order: 2; }
+  .about-cta-block   { order: 3; }
+  .about-metric-stack { order: 4; }
+
+  /* Heading */
+  .about-col-left .section-title { font-size: 1.6rem; line-height: 1.2; }
+  .section-title .title-script { display: inline; font-size: 0.95em; }
+
+  /* Campus image */
+  .about-campus-image img { height: 230px; }
+
+  /* CTA block: button centered, stats centered */
+  .about-cta-block {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    align-items: center;
+  }
+  .about-cta-block .btn-navy {
+    width: auto;
+    max-width: max-content;
+    align-self: center;
+    margin: 0 auto;
+    justify-content: center;
+    text-align: center;
+    white-space: nowrap;
+    padding: 12px 28px;
+    display: inline-flex;
+  }
+
+  /* Stat pills: centered 3-column grid */
+  .about-stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
+    justify-items: center;
+    width: 100%;
+  }
+  .stat-pill-item {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 6px;
+    background: var(--bg-light-blue);
+    padding: 12px 10px;
+    border-radius: var(--radius-sm);
+    width: 100%;
+  }
+  .stat-pill-num { font-size: 1rem; }
+  .stat-pill-lbl { font-size: 0.65rem; }
+
+  /* Metric cards: 2-column grid */
+  .about-metric-stack {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .metric-card { padding: 16px 14px; gap: 12px; }
+  .metric-card-icon { width: 38px; height: 38px; min-width: 38px; font-size: 1.1rem; }
+  .metric-card-content h3 { font-size: 1.25rem; }
+  .metric-card-content p { font-size: 0.75rem; }
 
   /* ── Section labels ── */
   .section-label { font-size: 0.72rem; letter-spacing: 0.09em; white-space: nowrap; }
 
   /* ── Academics ── */
   .academics-section { padding: 48px 0; }
-  .programs-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+  .programs-grid { grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 0; }
   .section-header-center { margin-bottom: 32px; }
   .section-header-center .section-title { font-size: 1.9rem; }
+  .academics-cta { display: none !important; }
 
-  /* ── Stats banner ── */
-  .stats-banner-dark { padding: 32px 0; }
-  .banner-stats-grid { grid-template-columns: repeat(2, 1fr); gap: 18px; }
-  .banner-stat-item { gap: 12px; }
+  /* ── Stats banner marquee on mobile ── */
+  .stats-banner-dark {
+    padding: 22px 0;
+    overflow: hidden;
+    position: relative;
+  }
+  .banner-marquee-container {
+    max-width: 100%;
+    padding: 0;
+    overflow: hidden;
+    mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  }
+  .banner-stats-track {
+    display: flex !important;
+    grid-template-columns: none !important;
+    gap: 24px !important;
+    width: max-content !important;
+    animation: bannerMarqueeAnim 22s linear infinite !important;
+    will-change: transform;
+    padding: 4px 12px;
+  }
+  .stats-banner-dark:hover .banner-stats-track,
+  .stats-banner-dark:active .banner-stats-track {
+    animation-play-state: paused !important;
+  }
+  .banner-stat-item.duplicate {
+    display: flex !important;
+  }
+  .banner-stat-item {
+    flex-shrink: 0 !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 12px !important;
+    white-space: nowrap !important;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 10px 18px;
+    border-radius: var(--radius-pill);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  .banner-stat-icon {
+    font-size: 1.5rem !important;
+  }
+  .banner-stat-num {
+    font-size: 1.35rem !important;
+  }
+  .banner-stat-label {
+    font-size: 0.72rem !important;
+  }
+
+  @keyframes bannerMarqueeAnim {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(calc(-50% - 12px));
+    }
+  }
 
   /* ── Admissions ── */
   .admissions-section { padding: 52px 0; }
@@ -1481,21 +1622,26 @@ button {
   .feature-item:last-child { border-bottom: none; padding-bottom: 0; }
 
   /* ── About ── */
-  .about-section { padding: 40px 0; }
-  .about-col-left .section-title { font-size: 1.6rem; }
-  .about-stats-row { gap: 10px; }
-  .stat-pill-item {
-    flex: 1 1 calc(50% - 5px);
-    background: var(--bg-light-blue);
-    padding: 10px 12px;
-    border-radius: var(--radius-sm);
-  }
+  .about-section { padding: 36px 0; }
+  .about-col-left .section-title { font-size: 1.4rem; }
+  .about-campus-image img { height: 200px; }
+
+  /* Stat pills: compact 3-col */
+  .about-stats-row { gap: 8px; }
+  .stat-pill-item { padding: 8px 6px; }
+  .stat-pill-num { font-size: 0.88rem; }
+  .stat-pill-lbl { font-size: 0.58rem; }
+
+  /* Metric cards: stay 2-col */
   .about-metric-stack { gap: 10px; }
-  .metric-card { flex: 1 1 100%; }
+  .metric-card { padding: 12px 10px; gap: 8px; }
+  .metric-card-icon { width: 32px; height: 32px; min-width: 32px; font-size: 0.95rem; }
+  .metric-card-content h3 { font-size: 1rem; }
+  .metric-card-content p { font-size: 0.68rem; }
 
   /* ── Academics ── */
   .academics-section { padding: 40px 0; }
-  .programs-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .programs-grid { grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 0; }
   .program-img-box { height: 110px; }
   .program-body { padding: 10px 12px; }
   .program-name { font-size: 0.88rem; margin-bottom: 4px; }
@@ -1503,14 +1649,7 @@ button {
   .section-header-center { margin-bottom: 24px; }
   .section-header-center .section-title { font-size: 1.7rem; }
   .section-label { font-size: 0.68rem; }
-
-  /* ── Stats banner ── */
-  .stats-banner-dark { padding: 28px 0; }
-  .banner-stats-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
-  .banner-stat-item { flex-direction: column; align-items: center; text-align: center; gap: 6px; }
-  .banner-stat-num { font-size: 1.4rem; }
-  .banner-stat-icon { font-size: 1.6rem; }
-  .banner-stat-label { font-size: 0.72rem; }
+  .academics-cta { display: none !important; }
 
   /* ── Admissions ── */
   .admissions-section { padding: 40px 0; }
@@ -1554,7 +1693,6 @@ button {
   .program-img-box { height: 130px; }
   .program-card { flex-direction: row; align-items: stretch; }
   .program-img-box { width: 100px; min-width: 100px; height: auto; }
-  .banner-stats-grid { grid-template-columns: 1fr 1fr; }
 }
 
 
