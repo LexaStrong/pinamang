@@ -1482,25 +1482,22 @@ button {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap: 12px;
     margin: 0 auto;
     width: 100%;
-    flex-wrap: wrap;
   }
   .hero-btn-group .btn-navy {
     width: auto;
-    padding: 12px 24px;
-    font-size: 0.84rem;
+    max-width: max-content;
+    padding: 13px 32px;
+    font-size: 0.86rem;
     justify-content: center;
     white-space: nowrap;
+    margin: 0 auto;
+    display: inline-flex;
+    align-self: center;
   }
   .hero-btn-group .btn-outline-video {
-    width: auto;
-    padding: 11px 22px;
-    font-size: 0.84rem;
-    justify-content: center;
-    white-space: nowrap;
-    background: var(--white);
+    display: none !important;
   }
 
   /* ── Features bar ── */
@@ -1762,16 +1759,19 @@ button {
   .hero-title { font-size: 1.85rem; line-height: 1.18; margin-bottom: 12px; }
   .hero-subtitle { font-size: 0.9rem; line-height: 1.55; margin-bottom: 18px; }
   .hero-btn-group {
-    gap: 10px;
     width: 100%;
-    max-width: 440px;
+    max-width: 100%;
+    justify-content: center;
   }
-  .hero-btn-group .btn-navy,
+  .hero-btn-group .btn-navy {
+    width: auto;
+    max-width: max-content;
+    padding: 12px 28px;
+    font-size: 0.82rem;
+    margin: 0 auto;
+  }
   .hero-btn-group .btn-outline-video {
-    flex: 1 1 calc(50% - 6px);
-    min-width: 140px;
-    padding: 11px 14px;
-    font-size: 0.78rem;
+    display: none !important;
   }
   .hero-image-card img { height: 210px; }
 
@@ -1862,15 +1862,18 @@ button {
   .hero-title { font-size: 1.65rem; }
   .hero-image-card img { height: 190px; }
   .hero-btn-group {
-    flex-direction: column;
     width: 100%;
-    max-width: 320px;
+    justify-content: center;
+  }
+  .hero-btn-group .btn-navy {
+    width: auto;
+    max-width: max-content;
+    padding: 12px 24px;
+    font-size: 0.8rem;
     margin: 0 auto;
   }
-  .hero-btn-group .btn-navy,
   .hero-btn-group .btn-outline-video {
-    width: 100%;
-    flex: none;
+    display: none !important;
   }
   .floating-features-bar { padding: 14px 12px; }
   .programs-grid { grid-template-columns: 1fr; gap: 10px; }
