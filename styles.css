@@ -283,6 +283,14 @@ button {
   box-shadow: 0 10px 24px rgba(229, 151, 20, 0.38);
 }
 
+/* Mobile-only drawer elements — hidden on desktop */
+.mobile-nav-brand,
+.mobile-nav-close,
+.nav-drawer-apply,
+.mobile-nav-backdrop {
+  display: none;
+}
+
 .mobile-toggle-btn {
   display: none;
   font-size: 1.4rem;
@@ -1237,85 +1245,604 @@ button {
 }
 
 /* ==========================================================================
-   RESPONSIVE DESIGN BREAKPOINTS
+   RESPONSIVE DESIGN — PROFESSIONAL MOBILE-FIRST SYSTEM
    ========================================================================== */
+
+/* ---- 1120px: Large Tablet / Small Desktop ---- */
 @media (max-width: 1120px) {
+  .container {
+    padding: 0 20px;
+  }
+
   .hero-title {
     font-size: 2.8rem;
   }
+
   .features-grid {
     grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
   }
+
   .about-grid {
     grid-template-columns: 1fr 1fr;
+    gap: 28px;
   }
+
   .about-metric-stack {
     grid-column: span 2;
     flex-direction: row;
+    justify-content: stretch;
   }
+
+  .metric-card {
+    flex: 1;
+  }
+
   .programs-grid {
     grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
   }
+
   .footer-top-grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1.2fr 1fr 1fr;
+    gap: 28px;
+  }
+
+  .footer-top-grid .footer-brand {
+    grid-column: span 3;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
     gap: 32px;
   }
+
+  .footer-top-grid .footer-brand .footer-logo-card {
+    flex-shrink: 0;
+    margin-bottom: 0;
+  }
 }
 
+/* ---- 900px: Tablet ---- */
 @media (max-width: 900px) {
-  .top-bar-inner {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .nav-menu {
+  /* Top Bar — compact phone + email only, hide location */
+  .top-bar {
     display: none;
   }
-  .mobile-toggle-btn {
+
+  /* Header */
+  .header-inner {
+    padding: 12px 0;
+    position: relative;
+  }
+
+  .header-logo-img {
+    height: 44px;
+  }
+
+  /* Mobile Navigation — hidden by default, revealed as drawer */
+  .nav-container {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: min(320px, 85vw);
+    height: 100dvh;
+    background: var(--primary-navy-dark);
+    z-index: 1500;
+    display: flex !important;
+    flex-direction: column;
+    padding: 80px 28px 40px;
+    transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: -8px 0 40px rgba(9, 26, 60, 0.5);
+    overflow-y: auto;
+  }
+
+  .nav-container.mobile-open {
+    right: 0;
+  }
+
+  /* Drawer overlay backdrop */
+  .mobile-nav-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(6, 17, 40, 0.65);
+    backdrop-filter: blur(3px);
+    z-index: 1400;
+  }
+
+  .mobile-nav-backdrop.active {
     display: block;
   }
+
+  .nav-menu {
+    display: flex !important;
+    flex-direction: column;
+    gap: 4px;
+    list-style: none;
+    width: 100%;
+  }
+
+  .nav-link {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #c7d5ef;
+    padding: 14px 18px;
+    border-radius: var(--radius-sm);
+    letter-spacing: 0.06em;
+    display: block;
+    transition: all var(--transition-fast);
+    border: 1px solid transparent;
+  }
+
+  .nav-link::after {
+    display: none;
+  }
+
+  .nav-link:hover, .nav-link.active {
+    color: var(--accent-gold);
+    background: rgba(229, 151, 20, 0.08);
+    border-color: rgba(229, 151, 20, 0.2);
+  }
+
+  /* Drawer close X button */
+  .mobile-nav-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #c7d5ef;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+  }
+
+  .mobile-nav-close:hover {
+    background: rgba(229, 151, 20, 0.2);
+    color: var(--accent-gold);
+  }
+
+  /* Drawer brand label at top */
+  .mobile-nav-brand {
+    position: absolute;
+    top: 22px;
+    left: 24px;
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent-gold);
+  }
+
+  /* Drawer apply button */
+  .nav-drawer-apply {
+    margin-top: auto;
+    padding-top: 28px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .nav-drawer-apply .btn-gold {
+    width: 100%;
+    justify-content: center;
+    padding: 14px;
+    font-size: 0.9rem;
+  }
+
+  /* Hamburger toggle — show */
+  .mobile-toggle-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: var(--radius-sm);
+    background: var(--bg-light-blue);
+    color: var(--primary-navy);
+    font-size: 1.2rem;
+    transition: all var(--transition-fast);
+  }
+
+  .mobile-toggle-btn:hover {
+    background: var(--primary-navy);
+    color: var(--white);
+  }
+
+  /* Header APPLY NOW — hide on mobile (only show in drawer) */
+  .header-actions .btn-gold {
+    display: none;
+  }
+
+  /* Hero */
+  .hero-section {
+    padding: 40px 0 72px;
+  }
+
   .hero-grid {
     grid-template-columns: 1fr;
+    gap: 36px;
+    text-align: center;
   }
+
+  .hero-content {
+    max-width: 100%;
+  }
+
+  .hero-btn-group {
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .hero-media-wrapper {
+    max-width: 540px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
   .legacy-badge {
-    right: 12px;
+    right: 8px;
     top: 12px;
+    padding: 10px 14px;
   }
+
+  /* Features bar */
+  .floating-features-bar {
+    margin-top: 36px;
+    padding: 20px 16px;
+  }
+
   .features-grid {
     grid-template-columns: 1fr 1fr;
+    gap: 16px;
   }
+
+  .feature-item {
+    border-right: none;
+    padding-right: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 12px;
+  }
+
+  .feature-item:nth-child(even) {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .feature-item:last-child, .feature-item:nth-last-child(2):nth-child(odd) {
+    border-bottom: none;
+  }
+
+  /* About section */
+  .about-section {
+    padding: 64px 0;
+  }
+
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .about-col-left {
+    text-align: center;
+  }
+
+  .about-stats-row {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .about-campus-image img {
+    height: 280px;
+  }
+
+  .about-metric-stack {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+
+  .metric-card {
+    flex: 1 1 calc(50% - 7px);
+    min-width: 160px;
+  }
+
+  /* Academics */
+  .academics-section {
+    padding: 64px 0;
+  }
+
+  .programs-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  /* Stats banner */
+  .stats-banner-dark {
+    padding: 36px 0;
+  }
+
   .banner-stats-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
   }
+
+  /* Admissions */
+  .admissions-section {
+    padding: 64px 0;
+  }
+
   .admissions-grid {
     grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .admissions-image-frame img {
+    height: 300px;
+  }
+
+  /* Footer */
+  .main-footer {
+    padding: 56px 0 24px;
+  }
+
+  .footer-top-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+  }
+
+  .footer-brand {
+    grid-column: span 2;
   }
 }
 
+/* ---- 640px: Mobile ---- */
 @media (max-width: 640px) {
-  .hero-title {
-    font-size: 2.2rem;
+  .container {
+    padding: 0 16px;
   }
+
+  /* Hero */
+  .hero-section {
+    padding: 32px 0 56px;
+  }
+
+  .hero-title {
+    font-size: 1.95rem;
+    line-height: 1.18;
+  }
+
+  .hero-subtitle {
+    font-size: 0.96rem;
+  }
+
+  .hero-btn-group {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .btn-navy, .btn-gold, .btn-outline-video {
+    width: 100%;
+    justify-content: center;
+    padding: 14px 20px;
+  }
+
+  .hero-image-card img {
+    height: 280px;
+  }
+
+  .legacy-badge {
+    display: none;
+  }
+
+  /* Features bar */
   .features-grid {
     grid-template-columns: 1fr;
+    gap: 12px;
   }
-  .about-grid {
-    grid-template-columns: 1fr;
+
+  .feature-item {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-bottom: 12px;
   }
-  .about-metric-stack {
-    grid-column: span 1;
+
+  .feature-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  /* About section */
+  .about-section {
+    padding: 52px 0;
+  }
+
+  .about-col-left .section-title {
+    font-size: 1.85rem;
+  }
+
+  .about-stats-row {
     flex-direction: column;
+    gap: 12px;
   }
+
+  .stat-pill-item {
+    background: var(--bg-light-blue);
+    padding: 12px 16px;
+    border-radius: var(--radius-sm);
+  }
+
+  .about-metric-stack {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .metric-card {
+    flex: unset;
+  }
+
+  /* Academics */
+  .academics-section {
+    padding: 52px 0;
+  }
+
   .programs-grid {
     grid-template-columns: 1fr;
+    gap: 14px;
   }
+
+  .program-card {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  .program-img-box {
+    width: 110px;
+    min-width: 110px;
+    height: auto;
+  }
+
+  .program-body {
+    padding: 14px 16px;
+  }
+
+  .program-name {
+    font-size: 0.95rem;
+  }
+
+  .program-desc {
+    font-size: 0.78rem;
+    margin-bottom: 10px;
+  }
+
+  .section-header-center {
+    margin-bottom: 36px;
+  }
+
+  .section-header-center .section-title {
+    font-size: 1.85rem;
+  }
+
+  /* Stats banner */
+  .stats-banner-dark {
+    padding: 32px 0;
+  }
+
   .banner-stats-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
   }
+
+  .banner-stat-item {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+  }
+
+  .banner-stat-num {
+    font-size: 1.45rem;
+  }
+
+  /* Admissions */
+  .admissions-section {
+    padding: 52px 0;
+  }
+
+  .admissions-image-frame img {
+    height: 240px;
+  }
+
+  .admissions-content .section-title {
+    font-size: 1.9rem;
+  }
+
+  .admissions-btn-group {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .admissions-btn-group .btn-gold,
+  .admissions-btn-group .btn-outline-navy {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Footer */
+  .main-footer {
+    padding: 48px 0 20px;
+  }
+
   .footer-top-grid {
     grid-template-columns: 1fr;
+    gap: 32px;
   }
+
+  .footer-brand {
+    grid-column: span 1;
+  }
+
+  .footer-bottom-bar {
+    font-size: 0.74rem;
+    padding-top: 18px;
+  }
+
+  /* Form grids */
   .form-grid-2, .form-grid-3 {
     grid-template-columns: 1fr;
+  }
+
+  .form-checkbox-group {
+    grid-template-columns: 1fr;
+  }
+
+  /* Modal */
+  .modal-overlay {
+    padding: 12px;
+    align-items: flex-end;
+  }
+
+  .modal-box {
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
+    max-height: 92dvh;
+  }
+
+  .modal-box.modal-lg {
+    max-width: 100%;
+  }
+
+  /* Toast */
+  .toast-notification {
+    bottom: 16px;
+    right: 16px;
+    left: 16px;
+    right: auto;
+    width: calc(100% - 32px);
+  }
+}
+
+/* ---- 420px: Small phones (iPhone SE, Galaxy A) ---- */
+@media (max-width: 420px) {
+  .hero-title {
+    font-size: 1.7rem;
+  }
+
+  .header-logo-img {
+    height: 38px;
+  }
+
+  .floating-features-bar {
+    padding: 16px 12px;
+  }
+
+  .banner-stats-grid {
+    grid-template-columns: 1fr 1fr;
   }
 }
 

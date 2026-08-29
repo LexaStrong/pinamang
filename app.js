@@ -239,24 +239,46 @@ document.addEventListener('DOMContentLoaded', () => {
   const statsSection = document.querySelector('.stats-banner-dark');
   if (statsSection) observer.observe(statsSection);
 
-  // Mobile menu toggle
+  // Mobile Menu Drawer
   const mobileToggle = document.getElementById('mobileMenuToggle');
-  const navMenu = document.querySelector('.nav-menu');
-  if (mobileToggle && navMenu) {
-    mobileToggle.addEventListener('click', () => {
-      if (navMenu.style.display === 'flex') {
-        navMenu.style.display = 'none';
-      } else {
-        navMenu.style.display = 'flex';
-        navMenu.style.flexDirection = 'column';
-        navMenu.style.position = 'absolute';
-        navMenu.style.top = '100%';
-        navMenu.style.left = '0';
-        navMenu.style.width = '100%';
-        navMenu.style.backgroundColor = '#ffffff';
-        navMenu.style.padding = '20px';
-        navMenu.style.boxShadow = '0 10px 20px rgba(0,0,0,0.1)';
-      }
-    });
+  const navContainer = document.getElementById('navContainer');
+  const mobileNavClose = document.getElementById('mobileNavClose');
+  const mobileNavBackdrop = document.getElementById('mobileNavBackdrop');
+
+  function openMobileNav() {
+    navContainer?.classList.add('mobile-open');
+    mobileNavBackdrop?.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    mobileToggle?.setAttribute('aria-expanded', 'true');
+    mobileToggle?.querySelector('i')?.classList.replace('fa-bars', 'fa-xmark');
   }
+
+  function closeMobileNav() {
+    navContainer?.classList.remove('mobile-open');
+    mobileNavBackdrop?.classList.remove('active');
+    document.body.style.overflow = '';
+    mobileToggle?.setAttribute('aria-expanded', 'false');
+    mobileToggle?.querySelector('i')?.classList.replace('fa-xmark', 'fa-bars');
+  }
+
+  mobileToggle?.addEventListener('click', () => {
+    const isOpen = navContainer?.classList.contains('mobile-open');
+    isOpen ? closeMobileNav() : openMobileNav();
+  });
+
+  mobileNavClose?.addEventListener('click', closeMobileNav);
+  mobileNavBackdrop?.addEventListener('click', closeMobileNav);
+
+  // Close drawer when a nav link is clicked
+  navContainer?.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', closeMobileNav);
+  });
+
+  // Drawer Apply Now button
+  document.getElementById('drawerApplyBtn')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    closeMobileNav();
+    openModal(admissionModal);
+  });
 });
+

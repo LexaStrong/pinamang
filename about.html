@@ -117,6 +117,9 @@
     </div>
   </aside>
 
+  <!-- Mobile Navigation Backdrop -->
+  <div class="mobile-nav-backdrop" id="mobileNavBackdrop"></div>
+
   <!-- ==========================================================================
        2. MAIN NAVIGATION HEADER
        ========================================================================== -->
@@ -128,8 +131,14 @@
           <img src="assets/images/pinamang_logo.png" alt="Pinamang Educational Complex" class="header-logo-img">
         </a>
 
-        <!-- Desktop Navigation -->
-        <nav class="nav-container" aria-label="Main Navigation">
+        <!-- Desktop + Mobile Drawer Navigation -->
+        <nav class="nav-container" id="navContainer" aria-label="Main Navigation">
+          <!-- Mobile only elements -->
+          <span class="mobile-nav-brand">PINAECO</span>
+          <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close menu">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+
           <ul class="nav-menu">
             <li><a href="index.html#home" class="nav-link">HOME</a></li>
             <li><a href="about.html" class="nav-link active">ABOUT US</a></li>
@@ -137,6 +146,13 @@
             <li><a href="index.html#academics" class="nav-link">ACADEMICS</a></li>
             <li><a href="index.html#contact" class="nav-link">CONTACT</a></li>
           </ul>
+
+          <!-- Drawer Apply button (mobile only) -->
+          <div class="nav-drawer-apply">
+            <a href="index.html#admissions" class="btn-gold" style="display:flex;align-items:center;gap:8px;justify-content:center;">
+              <i class="fa-solid fa-pen-to-square"></i> APPLY NOW
+            </a>
+          </div>
         </nav>
 
         <!-- Actions -->
@@ -144,7 +160,7 @@
           <button class="btn-gold" id="headerApplyBtn">
             APPLY NOW
           </button>
-          <button class="mobile-toggle-btn" id="mobileMenuToggle" aria-label="Open Navigation Menu">
+          <button class="mobile-toggle-btn" id="mobileMenuToggle" aria-label="Open Navigation Menu" aria-expanded="false">
             <i class="fa-solid fa-bars"></i>
           </button>
         </div>
