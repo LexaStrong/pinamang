@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>http://localhost:3000/</loc>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>http://localhost:3000/assets/images/hero_students.jpg</image:loc>
+      <image:title>Pinamang Educational Complex Students in Konongo</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>http://localhost:3000/assets/images/pinamang_logo.png</image:loc>
+      <image:title>Pinamang Educational Complex Official Logo</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>http://localhost:3000/about.html</loc>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>http://localhost:3000/assets/images/campus_building.jpg</image:loc>
+      <image:title>Pinamang Educational Complex Campus and Staff in Konongo</image:title>
+    </image:image>
+  </url>
+</urlset>

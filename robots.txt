@@ -1,0 +1,6 @@
+# robots.txt for Pinamang Educational Complex (PINAECO)
+User-agent: *
+Allow: /
+
+# Sitemap Index
+Sitemap: http://localhost:3000/sitemap.xml
