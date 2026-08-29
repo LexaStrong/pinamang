@@ -1463,7 +1463,7 @@ button {
 
   /* Heading */
   .about-col-left .section-title { font-size: 1.6rem; line-height: 1.2; }
-  .section-title .title-script { display: inline; font-size: 0.95em; }
+  .section-title .title-script { display: block; margin-top: 4px; font-size: 0.95em; }
 
   /* Campus image */
   .about-campus-image img { height: 230px; }
